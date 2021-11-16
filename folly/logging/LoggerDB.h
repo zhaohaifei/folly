@@ -319,7 +319,7 @@ class LoggerDB {
    * For lock ordering purposes, if you need to acquire both the loggersByName_
    * and handlerInfo_ locks, the handlerInfo_ lock must be acquired first.
    */
-  folly::Synchronized<HandlerInfo> handlerInfo_;
+  folly::Synchronized<HandlerInfo> handlerInfo_; // 包含所有的handlers，category中的handler也在这里
 
   /**
    * Callbacks returning context strings.

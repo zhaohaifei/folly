@@ -33,8 +33,8 @@ namespace folly {
  */
 class LogConfig {
  public:
-  using CategoryConfigMap = std::unordered_map<std::string, LogCategoryConfig>;
-  using HandlerConfigMap = std::unordered_map<std::string, LogHandlerConfig>;
+  using CategoryConfigMap = std::unordered_map<std::string, LogCategoryConfig>; // category name-->category config
+  using HandlerConfigMap = std::unordered_map<std::string, LogHandlerConfig>; // handler name-->handler config
 
   LogConfig() = default;
   explicit LogConfig(

@@ -299,6 +299,7 @@ FOLLY_EXPORT FOLLY_ALWAYS_INLINE bool xlogFirstNExactImpl(std::size_t n) {
 #define XLOG_FILENAME __FILE__
 #endif
 
+// type=append
 #define XLOG_IMPL(level, type, ...) \
   XLOG_ACTUAL_IMPL(                 \
       level, true, ::folly::isLogLevelFatal(level), type, ##__VA_ARGS__)
@@ -349,6 +350,8 @@ FOLLY_EXPORT FOLLY_ALWAYS_INLINE bool xlogFirstNExactImpl(std::size_t n) {
  *   initialized.  On all subsequent calls, disabled log statements can be
  *   skipped with just a single check of the LogLevel.
  */
+// cond=true, always_fatal=false, type=append；
+// __INCLUDE_LEVEL__是编译器内置的宏，用于表示文件被包含的次数；
 #define XLOG_ACTUAL_IMPL(level, cond, always_fatal, type, ...)             \
   (!XLOG_IS_ON_IMPL(level) || !(cond))                                     \
       ? ::folly::logDisabledHelper(::folly::bool_constant<always_fatal>{}) \
@@ -392,6 +395,7 @@ FOLLY_EXPORT FOLLY_ALWAYS_INLINE bool xlogFirstNExactImpl(std::size_t n) {
  *
  * See XlogLevelInfo for the implementation details.
  */
+// 是否启用这条log
 #define XLOG_IS_ON_IMPL(level)                              \
   ([] {                                                     \
     static ::folly::XlogLevelInfo<XLOG_IS_IN_HEADER_FILE>   \

@@ -23,6 +23,7 @@ using namespace example;
 
 // Invoking code that uses XLOG() statements before main() is safe.
 // This will use default log settings defined by folly::initializeLoggerDB().
+// XLOG()语句中，应该是调用了LoggerDB::get(), 但不清楚为何不报错。
 static ExampleObject staticInitialized("static");
 
 // Configure folly to enable INFO+ messages, and everything else to

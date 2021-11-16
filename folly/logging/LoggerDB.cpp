@@ -58,12 +58,12 @@ FOLLY_ATTR_WEAK void initializeLoggerDB(LoggerDB& db) {
   // This writes messages to stderr synchronously (immediately, in the thread
   // that generated the message), using the default GLOG-style formatter.
   auto defaultHandlerConfig =
-      LogHandlerConfig("stream", {{"stream", "stderr"}, {"async", "false"}});
+      LogHandlerConfig("stream", {{"stream", "stderr"}, {"async", "false"}}); // stream=stderr, async=false
   auto rootCategoryConfig =
-      LogCategoryConfig(kDefaultLogLevel, false, {"default"});
+      LogCategoryConfig(kDefaultLogLevel, false, {"default"}); // .=INFO:default;
   LogConfig config(
-      /* handlerConfigs */ {{"default", defaultHandlerConfig}},
-      /* categoryConfig */ {{"", rootCategoryConfig}});
+      /* handlerConfigs */ {{"default", defaultHandlerConfig}}, 
+      /* categoryConfig */ {{"", rootCategoryConfig}}); // .=INFO:default;default=stream:stream=stderr, async=false
 
   // Update the configuration
   db.updateConfig(config);
@@ -120,7 +120,7 @@ LogConfig LoggerDB::getFullConfig() const {
 LogConfig LoggerDB::getConfigImpl(bool includeAllCategories) const {
   auto handlerInfo = handlerInfo_.rlock();
 
-  LogConfig::HandlerConfigMap handlerConfigs;
+  LogConfig::HandlerConfigMap handlerConfigs; // handler name--> handler config
   std::unordered_map<std::shared_ptr<LogHandler>, string> handlersToName;
   for (const auto& entry : handlerInfo->handlers) {
     auto handler = entry.second.lock();
@@ -144,7 +144,7 @@ LogConfig LoggerDB::getConfigImpl(bool includeAllCategories) const {
     }
   };
 
-  LogConfig::CategoryConfigMap categoryConfigs;
+  LogConfig::CategoryConfigMap categoryConfigs; //category name-->category config
   {
     auto loggersByName = loggersByName_.rlock();
     for (const auto& entry : *loggersByName) {

@@ -113,7 +113,7 @@ void CustomLogFormatter::parseFormatString(StringPiece input) {
   fileNameCount_ = 0;
   // Replace all format keys to numbers to improve performance and to use
   // varying value types (which is not possible using folly::vformat()).
-  std::string output;
+  std::string output; // 例如，input={file}{L}{line}, 对应的output={8}{0}{10};
   output.reserve(input.size());
   const char* varNameStart = nullptr;
 
