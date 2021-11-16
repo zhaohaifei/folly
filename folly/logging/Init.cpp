@@ -45,7 +45,7 @@ void initLogging(StringPiece configString) { // configString由命令行传递
   // Apply the config settings
   LoggerDB::get().updateConfig(config); // 第一次调用LoggerDB::get()，会先生成一个默认的config，然后再融合这里的两处config。
                                         // 相当于共三份config：1.默认的config； 2.通过FOLLY_INIT_LOGGING_CONFIG传递的基础的config； 
-                                        //                   3.命令行传递过来的；
+                                        //                   3.命令行传递过来的config；
 }
 
 void initLoggingOrDie(StringPiece configString) {

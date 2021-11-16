@@ -282,7 +282,7 @@ class LoggerDB {
       LogCategory* parent);
 
   using NewHandlerMap =
-      std::unordered_map<std::string, std::shared_ptr<LogHandler>>;
+      std::unordered_map<std::string, std::shared_ptr<LogHandler>>; // handler name --> handler config
   using OldToNewHandlerMap = std::
       unordered_map<std::shared_ptr<LogHandler>, std::shared_ptr<LogHandler>>;
   LogConfig getConfigImpl(bool includeAllCategories) const;

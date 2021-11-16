@@ -354,8 +354,9 @@ void LoggerDB::updateConfig(const LogConfig& config) {
   // ensures that only a single config update operation ever runs at once.
   auto handlerInfo = handlerInfo_.wlock();
 
-  NewHandlerMap handlers;
-  OldToNewHandlerMap oldToNewHandlerMap;
+  NewHandlerMap handlers; // 用于保存所有handlers, 包括原来的handlers+新的handlers。
+                          // 和handlerInfo一样。
+  OldToNewHandlerMap oldToNewHandlerMap; // old handler和new handler，用handler name进行区分。
   startConfigUpdate(handlerInfo, config, &handlers, &oldToNewHandlerMap);
 
   // If an existing LogHandler was replaced with a new one,
